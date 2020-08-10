@@ -15,8 +15,8 @@ function userInput (props) {
     <input
       style={style}
       type='text'
-      onKeyPress={props.onKeyPress}
-      defaultValue={props.username}
+      onChange={props.onChange}
+      value={props.text}
     />
   );
 }
