@@ -5,25 +5,30 @@ import UserOutput from './UserOuput/UserOutput';
 
 class App extends React.Component {
   state = {
-    username: 'Olyaaaa',
+    text: 'Anton Olyaaaa Anton',
   }
 
-  userInputHandler = (event) => {
-    if (event.key === "Enter") {
-      this.setState({
-        username: event.target.value,
-      })
-    }
+  handleTextInput = (event) => {
+    this.setState({
+      text: event.target.value,
+    })
+  }
+
+  handleLetterDeletion = (letter) => {
+    const re = new RegExp(letter, 'gi');
+    let text = this.state.text.slice();
+    text = text.replace(re, '');
+
+    this.setState({text: text});
   }
 
   render() {
-    const size = 2;
-    const outputElements = Array(size).fill( <UserOutput username={this.state.username}/>);
+    const {text} = this.state;
 
     return (
       <div className="App">
-        <UserInput onKeyPress={this.userInputHandler} username={this.state.username} />
-        {outputElements}
+        <UserInput onChange={this.handleTextInput} text={text} />
+        <UserOutput text={text} onLetterClick={(letter) => this.handleLetterDeletion(letter)}/>
       </div>
     );
   }
